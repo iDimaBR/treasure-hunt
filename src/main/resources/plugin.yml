@@ -1,0 +1,7 @@
+name: TreasureHunt
+version: '${project.version}'
+main: com.github.idimabr.TreasureHunt
+api-version: '1.21'
+commands:
+  treasure:
+    permission: treasurehunt.admin
