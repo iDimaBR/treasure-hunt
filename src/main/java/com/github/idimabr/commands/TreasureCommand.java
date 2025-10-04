@@ -94,16 +94,17 @@ public class TreasureCommand implements CommandExecutor {
             return;
         }
 
-        List<UUID> players = controller.getPlayersFoundTreasure(id);
-        if (players.isEmpty()) {
-            player.sendMessage("§cNothing to show here.");
-            return;
-        }
+        controller.getPlayersFoundTreasureAsync(id).thenAccept(uuids -> {
+            if (uuids.isEmpty()) {
+                player.sendMessage("§cNothing to show here.");
+                return;
+            }
 
-        player.sendMessage("§aPlayers who found '" + id + "':");
-        for (UUID p : players) {
-            player.sendMessage("§f - " + Bukkit.getOfflinePlayer(p).getName());
-        }
+            player.sendMessage("§aPlayers who found '" + id + "':");
+            for (UUID p : uuids) {
+                player.sendMessage("§f - " + Bukkit.getOfflinePlayer(p).getName());
+            }
+        });
     }
 
     private void handleList(Player player) {
